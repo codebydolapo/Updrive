@@ -2,10 +2,11 @@ import { Heart, User, Fuel, CarFront } from 'lucide-react'
 import React from 'react'
 import Image from 'next/image'
 import PopularCars from '@/types/popularCars'
+import Link from 'next/link'
 
-function PopularCar({ name, price, location, image, manual, seaters, tankCapacity, background }: PopularCars) {
+function PopularCar({ name, price, location, image, manual, seaters, tankCapacity, background, id }: PopularCars) {
     return (
-        <div className={`${background} md:min-w-[18vw] md:max-w-[18vw] min-w-[60vw] max-w-[60vw] flex flex-col items-center justify-between md:h-[19vw] h-[70vw] p-2 rounded-lg mx-2`}>
+        <Link className={`${background} md:min-w-[18vw] md:max-w-[18vw] min-w-[60vw] max-w-[60vw] flex flex-col items-center justify-between md:h-[19vw] h-[70vw] p-2 rounded-lg mx-2`} href={`/car/${id}`}>
             <div className="w-full flex items-center justify-between">
                 <div className="flex flex-1 flex-col items-start justify-start">
                     <p className="text-md font-bold">{name}</p>
@@ -40,7 +41,7 @@ function PopularCar({ name, price, location, image, manual, seaters, tankCapacit
                     <button className="py-2 px-4 text-xs bg-black rounded-full text-white ">Rent Now!</button>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

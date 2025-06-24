@@ -11,7 +11,7 @@ import CarCard from "@/components/CarCard";
 export default function Home() {
   return (
     <div className="w-[100vw] relative flex flex-col items-center">
-      <div className="md:w-[110vw] md:h-[110vw] w-[100vh] h-[100vh] bg-[#1da1f2] rounded-b-full left-1/2 -translate-x-1/2 absolute -z-10 md:-top-[60vw] -top-[50vh]"></div>
+      <div className="md:w-[110vw] md:h-[110vw] w-[100vh] h-[100vh] bg-[#1da1f2] rounded-b-full left-1/2 -translate-x-1/2 absolute -z-10 md:-top-[60vw] -top-[50vh]"/>
       <div className="md:mt-10 mt-20 flex flex-col md:max-w-[55rem] max-w-[100vw]">
         <h1 className="text-white md:text-[5rem] text-5xl font-semibold text-center tracking-tight md:leading-20">The Best Platform For Car Rentals</h1>
       </div>
@@ -70,7 +70,7 @@ export default function Home() {
             popularCars.map(({ name, price, location, image, manual, seaters, tankCapacity, background, id }) => {
               return (
                 <PopularCar
-                  key={id! + Math.round(Math.random() * 10)}
+                  key={(id! * Math.round(Math.random() * 10))}
                   name={name}
                   price={price}
                   location={location}
@@ -78,19 +78,20 @@ export default function Home() {
                   manual={manual}
                   seaters={seaters}
                   tankCapacity={tankCapacity}
-                  background={background} />
+                  background={background}
+                  id={id} brand={""} model={""} year={0} images={[]} fuelType={"Petrol"} engine={""} mileage={0} transmission={"Automatic"} driveTrain={"AWD"} description={""} features={[]} rating={0} reviewsCount={0} lat={0} lng={0}                  />
               )
             })
           }
         </div>
       </div>
-      <div className="my-10 w-full flex bg-gray-200">
-        <div className="w-[50%] flex items-center justify-center">
-          <Image src={"/images/rentalBanner.webp"} alt="" unoptimized width={0} height={0} className="w-[70%] h-auto" />
+      <div className="my-10 py-4 w-full flex md:flex-row flex-col bg-gray-200 space-y-6">
+        <div className="md:w-[50%] w-full flex items-center justify-center">
+          <Image src={"/images/rentalBanner.webp"} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
         </div>
-        <div className="w-[50%] flex flex-col items-start justify-center space-y-4 pr-[12rem]">
+        <div className="md:w-[50%] w-full flex flex-col md:items-start items-center justify-center space-y-4 md:pr-[12rem]">
           <h1 className="font-bold text-4xl">Download our app!</h1>
-          <p className="text-base">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
+          <p className="text-base md:text-start text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
           <button className="bg-black px-3 py-2 text-sm text-white rounded-full">Download Now</button>
         </div>
       </div>
@@ -101,7 +102,7 @@ export default function Home() {
             popularCars.map(({ name, price, location, image, manual, seaters, tankCapacity, background, id }) => {
               return (
                 <CarCard
-                  key={id! + Math.round(Math.random() * 10)}
+                  key={(id! * Math.round(Math.random() * 10))}
                   name={name}
                   price={price}
                   location={location}
@@ -110,6 +111,7 @@ export default function Home() {
                   seaters={seaters}
                   tankCapacity={tankCapacity}
                   background={background}
+                  id = {id}
                 />
               )
             })

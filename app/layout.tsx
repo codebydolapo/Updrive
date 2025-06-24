@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="w-[100vw] no-scrollbar scrollbar-hidden overflow-x-hidden ">
       <body
-        className={`${poppins.className} max-w-[100vw] `}
+        className={`${poppins.className} max-w-[100vw] overflow-x-hidden `}
       >
         <Header />
         <div className="md:px-4 px-2">
