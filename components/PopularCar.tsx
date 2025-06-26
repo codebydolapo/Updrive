@@ -4,7 +4,7 @@ import Image from 'next/image'
 import PopularCars from '@/types/popularCars'
 import Link from 'next/link'
 
-function PopularCar({ name, price, location, image, manual, seaters, tankCapacity, background, id }: PopularCars) {
+function PopularCar({ name, price, location, image, seaters, tankCapacity, background, id }: PopularCars) {
     return (
         <Link className={`${background} md:min-w-[18vw] md:max-w-[18vw] min-w-[60vw] max-w-[60vw] flex flex-col items-center justify-between md:h-[19vw] h-[70vw] p-2 rounded-lg mx-2`} href={`/car/${id}`}>
             <div className="w-full flex items-center justify-between">

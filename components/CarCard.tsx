@@ -1,9 +1,10 @@
-import { Heart, HeartOff, User, Fuel, CarFront } from 'lucide-react'; // Import HeartOff
+import { Heart, User, Fuel, CarFront } from 'lucide-react'; // Import HeartOff
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import PopularCars from '@/types/popularCars';
 
-function CarCard({ name, price, location, image, manual, seaters, tankCapacity, background, id }: any) {
+function CarCard({ name, price, location, image, seaters, tankCapacity, id }: PopularCars) {
   // Generate a random boolean to decide if the heart should be filled
   const isHeartFilled = Math.random() < 0.5; // This will make about half of them filled
 
@@ -40,11 +41,11 @@ function CarCard({ name, price, location, image, manual, seaters, tankCapacity, 
         </div>
       </div>
       <div className="flex items-center justify-around w-full">
-        <div className="w-[50%] flex items-start justify-start">
+        <div className="flex items-start justify-start">
           <p className="text-sm font-bold">${price}<strong className="text-[0.5rem] font-light">/day</strong></p>
         </div>
-        <div className="w-[50%] flex items-end justify-end">
-          <button className="md:py-2 py-1 px-4 text-xs bg-[#1da1f2] rounded-full text-white ">Rent Now!</button>
+        <div className="flex-1 flex items-end justify-end">
+          <button className="md:py-2 py-1 px-4 text-xs bg-[#1da1f2] md:rounded-full rounded-lg text-white ">Rent Now!</button>
         </div>
       </div>
     </Link>

@@ -1,9 +1,10 @@
-import { CarFront, Fuel, Heart, User } from "lucide-react";
 import Image from "next/image";
-import PopularCars from "@/types/popularCars";
+// import PopularCars from "@/types/popularCars";
 import PopularCar from "@/components/PopularCar";
 import popularCars from "@/data/popularCars";
 import CarCard from "@/components/CarCard";
+import BlogCard from "@/components/BlogCard";
+import blogs from "@/data/blogs";
 
 
 
@@ -11,7 +12,7 @@ import CarCard from "@/components/CarCard";
 export default function Home() {
   return (
     <div className="w-[100vw] relative flex flex-col items-center">
-      <div className="md:w-[110vw] md:h-[110vw] w-[100vh] h-[100vh] bg-[#1da1f2] rounded-b-full left-1/2 -translate-x-1/2 absolute -z-10 md:-top-[60vw] -top-[50vh]"/>
+      <div className="md:w-[110vw] md:h-[110vw] w-[100vh] h-[100vh] bg-[#1da1f2] rounded-b-full left-1/2 -translate-x-1/2 absolute -z-10 md:-top-[60vw] -top-[50vh]" />
       <div className="md:mt-10 mt-20 flex flex-col md:max-w-[55rem] max-w-[100vw]">
         <h1 className="text-white md:text-[5rem] text-5xl font-semibold text-center tracking-tight md:leading-20">The Best Platform For Car Rentals</h1>
       </div>
@@ -79,7 +80,7 @@ export default function Home() {
                   seaters={seaters}
                   tankCapacity={tankCapacity}
                   background={background}
-                  id={id} brand={""} model={""} year={0} images={[]} fuelType={"Petrol"} engine={""} mileage={0} transmission={"Automatic"} driveTrain={"AWD"} description={""} features={[]} rating={0} reviewsCount={0} lat={0} lng={0}                  />
+                  id={id} brand={""} model={""} year={0} images={[]} fuelType={"Petrol"} engine={""} mileage={0} transmission={"Automatic"} driveTrain={"AWD"} description={""} features={[]} rating={0} reviewsCount={0} lat={0} lng={0} />
               )
             })
           }
@@ -96,7 +97,7 @@ export default function Home() {
         </div>
       </div>
       <div className="md:my-10 my-20 flex flex-col items-start justify-start w-[100vw] scrollbar-hidden">
-        <h1 className="font-semibold text-3xl">The Best Platform For Car Rentals</h1>
+        <h1 className="font-semibold md:text-3xl text-xl">The Best Platform For Car Rentals</h1>
         <div className="w-full mt-5 flex flex-wrap items-center justify-around no-scrollbar scrollbar-hidden">
           {
             popularCars.map(({ name, price, location, image, manual, seaters, tankCapacity, background, id }) => {
@@ -111,11 +112,28 @@ export default function Home() {
                   seaters={seaters}
                   tankCapacity={tankCapacity}
                   background={background}
-                  id = {id}
-                />
+                  id={id} brand={""} model={""} year={0} images={[]} fuelType={"Petrol"} engine={""} mileage={0} transmission={"Automatic"} driveTrain={"AWD"} description={""} features={[]} rating={0} reviewsCount={0} lat={0} lng={0}                />
               )
             })
           }
+        </div>
+        <div className="w-[50%] flex items-end justify-end mt-10">
+          <button className="md:py-4 py-2 px-8 text-xs bg-black rounded-full text-white cursor-pointer">See More</button>
+        </div>
+      </div>
+      <div className="md:my-10 my-20 flex flex-col items-start justify-start w-[100vw] scrollbar-hidden">
+        <h1 className="font-semibold md:text-3xl text-xl">Learn More About Us!</h1>
+        <div className="w-full mt-5 flex md:flex-row flex-col items-center justify-around no-scrollbar scrollbar-hidden">
+          {blogs.map(({ title, datePublished, image, excerpt }) => {
+            return (<BlogCard
+              title={title}
+              datePublished={datePublished}
+              image={image}
+              excerpt={excerpt}
+              key={title}
+            />)
+          })}
+
         </div>
       </div>
     </div >

@@ -1,11 +1,12 @@
 "use client";
 import { usePathname } from 'next/navigation';
-import React, { useMemo, useState, useEffect } from 'react'; // Added useEffect
+import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
-import popularCars from '@/data/popularCars'; // Your updated data
-import { Heart, Fuel, Users, Gauge, Car, Star, ClipboardList, MapPin, Wrench, CalendarDays } from 'lucide-react'; // Added more icons
+import popularCars from '@/data/popularCars';
+import { Heart, Fuel, Users, Gauge, Car, Star, ClipboardList, MapPin, Wrench, CalendarDays } from 'lucide-react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { Libraries } from '@react-google-maps/api';
+import Link from 'next/link';
 
 const libraries: Libraries = ["places", "marker"];
 
@@ -13,10 +14,11 @@ function Page() {
     const pathname = usePathname();
     const id = pathname.split('/').pop();
 
+    // All hooks must be called unconditionally at the top level
     const car = useMemo(() => popularCars.find(item => item.id === Number(id)), [id]);
 
     // State to manage the currently displayed main car image
-    const [mainCarImage, setMainCarImage] = useState(car?.image || "/images/placeholder.png"); // Fallback to a better placeholder
+    const [mainCarImage, setMainCarImage] = useState(car?.image || "/images/placeholder.png");
 
     // Update main image when car changes or component mounts for the first time
     useEffect(() => {
@@ -27,32 +29,33 @@ function Page() {
         }
     }, [car]);
 
-    // Handle case where car is not found
+    // Define defaultCenter unconditionally, providing a fallback if car is not found initially
+    const defaultCenter = useMemo(() => ({
+        lat: car?.lat || 6.5244, // Default to a fallback coordinate if car is null
+        lng: car?.lng || 3.3792
+    }), [car]);
+
+    // useLoadScript must also be called unconditionally
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_Maps_API_KEY || "",
+        libraries: libraries,
+        version: "beta"
+    });
+
+    // Handle case where car is not found - this return statement comes AFTER all hooks
     if (!car) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-50 text-gray-700">
                 <div className="text-center p-8 bg-white rounded-xl shadow-lg">
                     <h2 className="text-2xl font-bold mb-4">Car Not Found</h2>
                     <p className="text-lg">The car you are looking for does not exist.</p>
-                    {/* Add a link back to a listing page if applicable */}
-                    <a href="/" className="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                    <Link href="/" className="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
                         Back to Home
-                    </a>
+                    </Link>
                 </div>
             </div>
         );
     }
-
-    const defaultCenter = useMemo(() => ({
-        lat: car.lat,
-        lng: car.lng
-    }), [car]);
-
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_Maps_API_KEY || "",
-        libraries: libraries,
-        v: "beta",
-    });
 
     const mapContainerStyle = {
         width: '100%',
@@ -89,8 +92,8 @@ function Page() {
                                     car.images.map((image, index) => (
                                         <div
                                             key={index}
-                                            className={`md:w-20 md:h-20 w-15 h-15 cursor-pointer border-2 
-                                                ${mainCarImage === image ? 'border-blue-600 ring-2 ring-blue-300' : 'border-transparent hover:border-blue-500'} 
+                                            className={`md:w-20 md:h-20 w-15 h-15 cursor-pointer border-2
+                                                ${mainCarImage === image ? 'border-blue-600 ring-2 ring-blue-300' : 'border-transparent hover:border-blue-500'}
                                                 rounded-lg overflow-hidden transition-all duration-200 shadow-sm`}
                                             onClick={() => setMainCarImage(image)}
                                         >
@@ -233,9 +236,6 @@ function Page() {
                                 Rent Now
                             </button>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
