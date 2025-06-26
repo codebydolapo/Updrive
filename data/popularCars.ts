@@ -11,7 +11,7 @@ const popularCars: PopularCars[] = [
     price: "99",
     location: "Madrid, Spain",
     image: "/images/audiv13.png", // Ensure you have this image
-    images: ["/images/audi/1.jpg", "/images/audi/2.jpg", "/images/audi/3.jpg"], // Placeholder images
+    images: ["/images/audi/1.webp", "/images/audi/2.jpg", "/images/audi/3.jpg", "/images/audi/4.jpg"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 54,
@@ -37,7 +37,7 @@ const popularCars: PopularCars[] = [
     price: "45",
     location: "Brussels, Belgium",
     image: "/images/hyundaisf.png", // Ensure you have this image
-    images: ["/images/hyundai/1.jpg", "/images/hyundai/2.jpg"], // Placeholder images
+    images: ["/images/hyundai/1.jpg", "/images/hyundai/2.jpg", "/images/hyundai/3.jpg", "/images/hyundai/4.jpg"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 0,
@@ -63,7 +63,7 @@ const popularCars: PopularCars[] = [
     price: "53",
     location: "Abuja, Nigeria",
     image: "/images/SUV.png", // Ensure you have this image
-    images: ["/images/toyota/1.jpg", "/images/toyota/2.jpg", "/images/toyota/3.jpg"], // Placeholder images
+    images: ["/images/toyota/1.png", "/images/toyota/2.jpg", "/images/toyota/3.jpg", "/images/toyota/4.jpg"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 55,
@@ -89,7 +89,7 @@ const popularCars: PopularCars[] = [
     price: "180",
     location: "Cape Town, South Africa",
     image: "/images/Hiace.png", // Ensure you have this image
-    images: ["/images/hiace/1.jpg", "/images/hiace/2.jpg"], // Placeholder images
+    images: ["/images/hiace/1.webp", "/images/hiace/2.jpg", "/images/hiace/3.jpg", "/images/hiace/4.jpg"], // Placeholder images
     manual: true,
     seaters: 15,
     tankCapacity: 70,
@@ -141,7 +141,7 @@ const popularCars: PopularCars[] = [
     price: "23",
     location: "Antwerp, Belgium", // Changed location to make it distinct from previous Hyundai
     image: "/images/hyundaisf.png", // Reusing the image for demonstration
-    images: ["/images/hyundai/3.jpg", "/images/hyundai/4.jpg"], // New placeholder images
+    images: ["/images/hyundai/1.jpg", "/images/hyundai/2.jpg", "/images/hyundai/3.jpg", "/images/hyundai/4.jpg"],
     manual: false,
     seaters: 5,
     tankCapacity: 50,
@@ -167,7 +167,7 @@ const popularCars: PopularCars[] = [
     price: "72",
     location: "Tokyo, Japan",
     image: "/images/lexusJaguar.png", // Ensure you have this image
-    images: ["/images/lexus/1.jpg", "/images/lexus/2.jpg"], // Placeholder images
+    images: ["/images/lexus/1.png", "/images/lexus/2.jpg", "/images/lexus/3.jpg", "/images/lexus/4.webp"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 60,
@@ -193,7 +193,7 @@ const popularCars: PopularCars[] = [
     price: "82",
     location: "Helsinki, Finland",
     image: "/images/bmwsedan.png", // Ensure you have this image
-    images: ["/images/BMW/5_series_1.jpg", "/images/BMW/5_series_2.jpg"], // Placeholder images
+    images: ["/images/BMWS/1.jpg", "/images/BMWS/2.png", "/images/BMWS/2.jpg", "/images/BMWS/2.webp"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 68,
@@ -220,7 +220,7 @@ const popularCars: PopularCars[] = [
     price: "99",
     location: "Valencia, Spain", // Another point in Spain
     image: "/images/audiv13.png", // Reusing image, ideally unique
-    images: ["/images/audi/4.jpg", "/images/audi/5.jpg"], // New placeholder images
+    images: ["/images/audi/1.webp", "/images/audi/2.jpg", "/images/audi/3.jpg", "/images/audi/4.jpg"], // New placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 63,
@@ -246,7 +246,7 @@ const popularCars: PopularCars[] = [
     price: "23",
     location: "Ghent, Belgium", // Another point in Belgium
     image: "/images/hyundaisf.png", // Reusing image
-    images: ["/images/hyundai/5.jpg", "/images/hyundai/6.jpg"], // New placeholder images
+    images: ["/images/hyundai/1.jpg", "/images/hyundai/2.jpg", "/images/hyundai/3.jpg", "/images/hyundai/4.jpg"], // New placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 54,
@@ -272,7 +272,7 @@ const popularCars: PopularCars[] = [
     price: "53",
     location: "Lagos, Nigeria", // Lagos, Nigeria
     image: "/images/SUV.png", // Reusing image, ideally unique
-    images: ["/images/toyota/4.jpg", "/images/toyota/5.jpg"], // New placeholder images
+    images: ["/images/toyota/1.png", "/images/toyota/2.jpg", "/images/toyota/3.jpg", "/images/toyota/4.jpg"], // New placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 60,
@@ -298,7 +298,7 @@ const popularCars: PopularCars[] = [
     price: "180", // Slightly different price for SUV vs van
     location: "Durban, South Africa", // Another point in South Africa
     image: "/images/Hiace.png", // Reusing image, ideally unique
-    images: ["/images/toyota/fortuner_1.jpg", "/images/toyota/fortuner_2.jpg"], // New placeholder images
+    images: ["/images/toyota/1.png", "/images/toyota/2.jpg", "/images/toyota/3.jpg", "/images/toyota/4.jpg"], // New placeholder images
     manual: false, // Assuming automatic for this SUV
     seaters: 7, // Common for large SUVs
     tankCapacity: 80, // Larger tank
