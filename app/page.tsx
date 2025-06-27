@@ -86,7 +86,7 @@ export default function Home() {
           }
         </div>
       </div>
-      <div className="my-10 py-4 w-full flex md:flex-row flex-col bg-gray-200 space-y-6">
+      <div className="my-10 py-4 w-full flex md:flex-row flex-col bg-gray-200 space-y-6 ">
         <div className="md:w-[50%] w-full flex items-center justify-center">
           <Image src={"/images/rentalBanner.webp"} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
         </div>
