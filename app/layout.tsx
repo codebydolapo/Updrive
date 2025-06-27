@@ -5,11 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer"
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
 } from '@clerk/nextjs'
 
 const poppins = Poppins({

@@ -26,17 +26,8 @@ const MyLottieComponent = () => {
         getLottie();
 
     }, []);
-    return (
-        <>
-            <div className="md:w-[30rem] md:h-[30rem] w-[98vw] h-[10rem] flex items-center justify-center rounded-full relative">
-                <div className="w-full z-10" ref={animationRef!}></div>
-                {/* <Image alt="" src="/vector.svg" width={0} height={0} className='w-full h-full absolute self-center tint-gray-300' /> */}
-            </div>
-        </>
-    );
-};
 
-function page() {
+
     const router = useRouter()
     const searchParams = useSearchParams();
 
@@ -47,12 +38,36 @@ function page() {
         setTimeout(() => {
             router.push("/")
         }, 3000)
-    }, [])
+    }, [router])
+
+    return (
+        <>
+            <div className="md:w-[30rem] md:h-[30rem] w-[98vw] h-[10rem] flex items-center justify-center rounded-full relative">
+                <div className="w-full z-10" ref={animationRef!}></div>
+                {/* <Image alt="" src="/vector.svg" width={0} height={0} className='w-full h-full absolute self-center tint-gray-300' /> */}
+                <p className='mt-12 text-center md:text-lg text-xs'>One <b className='text-[#1da1f2]'>{carName ? carName : "vehicle"}</b> coming right to your location!</p>
+            </div>
+        </>
+    );
+};
+
+function page() {
+    // const router = useRouter()
+    // const searchParams = useSearchParams();
+
+    // const carName = searchParams.get("carName")
+
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         router.push("/")
+    //     }, 3000)
+    // }, [])
 
     return (
         <div className='w-full h-screen flex flex-col items-center justify-center'>
             <MyLottieComponent />
-            <p className='mt-12 text-center md:text-lg text-xs'>One <b className='text-[#1da1f2]'>{carName ? carName : "vehicle"}</b> coming right to your location!</p>
+            {/* <p className='mt-12 text-center md:text-lg text-xs'>One <b className='text-[#1da1f2]'>{carName ? carName : "vehicle"}</b> coming right to your location!</p> */}
         </div>
     )
 }
