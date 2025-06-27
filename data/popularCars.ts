@@ -11,7 +11,7 @@ const popularCars: PopularCars[] = [
     price: "99",
     location: "Madrid, Spain",
     image: "/images/audiv13.png", // Ensure you have this image
-    images: ["/images/audi/1.webp", "/images/audi/2.jpg", "/images/audi/3.jpg", "/images/audi/4.jpg"], // Placeholder images
+    images: ["/images/audi/1.webp", "/images/audi/2.jpg", "/images/audi/3.png", "/images/audi/4.jpg"], // Placeholder images
     manual: false,
     seaters: 5,
     tankCapacity: 54,
