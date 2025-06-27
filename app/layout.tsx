@@ -29,6 +29,7 @@ export default function RootLayout({
       appearance={{
         cssLayerName: 'clerk',
       }}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en" className="w-[100vw] no-scrollbar scrollbar-hidden overflow-x-hidden ">
         <body
