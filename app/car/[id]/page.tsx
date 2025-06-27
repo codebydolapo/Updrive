@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import popularCars from '@/data/popularCars';
@@ -43,6 +43,20 @@ function Page() {
         libraries: libraries,
         version: "beta"
     });
+     const { user } = useUser()
+    const { signIn } = useSignIn();
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signIn?.authenticateWithRedirect({
+                strategy: 'oauth_google',
+                redirectUrl: '/sso-callback', // A dedicated page for handling SSO redirects
+                redirectUrlComplete: '/', // Where to go after the SSO flow is complete
+            });
+        } catch (err) {
+            console.error('OAuth error', err);
+        }
+    };
 
     // Handle case where car is not found - this return statement comes AFTER all hooks
     if (!car) {
@@ -66,20 +80,7 @@ function Page() {
         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
     };
 
-    const { user } = useUser()
-    const { isLoaded: loaded, signIn, setActive } = useSignIn();
-
-    const handleGoogleSignIn = async () => {
-        try {
-            await signIn?.authenticateWithRedirect({
-                strategy: 'oauth_google',
-                redirectUrl: '/sso-callback', // A dedicated page for handling SSO redirects
-                redirectUrlComplete: '/', // Where to go after the SSO flow is complete
-            });
-        } catch (err) {
-            console.error('OAuth error', err);
-        }
-    };
+   
 
     return (
         <div className='min-h-screen bg-gray-50 md:p-10 flex flex-col items-center '>
