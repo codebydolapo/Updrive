@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import popularCars from '@/data/popularCars';
@@ -7,6 +7,8 @@ import { Heart, Fuel, Users, Gauge, Car, Star, ClipboardList, MapPin, Wrench, Ca
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { Libraries } from '@react-google-maps/api';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
+import { useSignIn } from '@clerk/nextjs';
 
 const libraries: Libraries = ["places", "marker"];
 
@@ -62,6 +64,21 @@ function Page() {
         height: '350px',
         borderRadius: '12px',
         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    };
+
+    const { user } = useUser()
+    const { isLoaded: loaded, signIn, setActive } = useSignIn();
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signIn?.authenticateWithRedirect({
+                strategy: 'oauth_google',
+                redirectUrl: '/sso-callback', // A dedicated page for handling SSO redirects
+                redirectUrlComplete: '/', // Where to go after the SSO flow is complete
+            });
+        } catch (err) {
+            console.error('OAuth error', err);
+        }
     };
 
     return (
@@ -232,14 +249,8 @@ function Page() {
                                 ${car.price}
                                 <span className="md:text-xl text-sm font-light text-gray-600">/day</span>
                             </p>
-                            <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105" 
-                            // href={{
-                            //     pathname: "/delivery",
-                            //     query: {
-                            //         carName: car.name
-                            //     }
-                            // }}
-                            href={`/delivery?carName=${car.name}`}
+                            <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+                                href={`${user ? `/delivery?carName=${car.name}` : ()=>handleGoogleSignIn()}`}
                             >
                                 Rent Now
                             </Link>
