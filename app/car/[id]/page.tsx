@@ -114,7 +114,7 @@ function Page() {
                         </div>
                         {/* Google Map */}
                         <div className='w-full mt-8'>
-                            <h3 className='md:text-2xl text-base font-semibold text-gray-800 mb-4'>Car Location: {car.location}</h3>
+                            <h3 className='md:text-2xl text-sm font-light text-gray-800 mb-4'>Car Location: <b className='text-[#1da1f2] text-base font-semibold'>{car.location}</b></h3>
                             {loadError && (
                                 <div className="flex items-center justify-center min-h-[200px] text-red-600 border border-red-300 bg-red-50 rounded-lg p-4 mb-4">
                                     Error loading maps. Please check your API key and network.
@@ -232,9 +232,17 @@ function Page() {
                                 ${car.price}
                                 <span className="md:text-xl text-sm font-light text-gray-600">/day</span>
                             </p>
-                            <button className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">
+                            <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105" 
+                            // href={{
+                            //     pathname: "/delivery",
+                            //     query: {
+                            //         carName: car.name
+                            //     }
+                            // }}
+                            href={`/delivery?carName=${car.name}`}
+                            >
                                 Rent Now
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
