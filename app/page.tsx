@@ -16,7 +16,7 @@ export default function Home() {
       <div className="md:mt-10 mt-20 flex flex-col md:max-w-[55rem] max-w-[100vw]">
         <h1 className="text-white md:text-[5rem] text-4xl font-semibold text-center tracking-tight md:leading-20">The Best Platform For Car Rentals</h1>
       </div>
-      <div className="md:mt-0 mt-5 flex flex-col md:max-w-[40rem] max-w-[90vw]">
+      <div className="flex flex-col md:max-w-[40rem] max-w-[90vw]">
         <p className="text-white md:text-sm text-xs font-light text-center">We open the doors for you to explore the world in comfort and style, being your trusted car rental partner</p>
       </div>
       <Image src={"/images/SUV.png"} alt="" unoptimized width={0} height={0} className="md:w-[70vw] w-[90vw] h-auto" />
