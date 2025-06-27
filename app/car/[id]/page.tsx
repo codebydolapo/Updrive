@@ -251,7 +251,7 @@ function Page() {
                                 <span className="md:text-xl text-sm font-light text-gray-600">/day</span>
                             </p>
                             <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
-                                href={`${user ? `/delivery?carName=${car.name}` : ()=>handleGoogleSignIn()}`}
+                                href={`${user ? `/delivery?carName=${car.name}` : handleGoogleSignIn}`}
                             >
                                 Rent Now
                             </Link>

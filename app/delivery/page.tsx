@@ -38,7 +38,7 @@ const MyLottieComponentContent = () => {
   }, [router]); // Added router to the dependency array
 
   return (
-    <div className="md:w-[30rem] md:h-[30rem] w-[98vw] h-[10rem] flex items-center justify-center rounded-full relative">
+    <div className="md:w-[30rem] md:h-[30rem] w-[98vw] h-[10rem] flex flex-col items-center justify-center rounded-full relative">
       <div className="w-full z-10" ref={animationRef!}></div>
       <p className='mt-12 text-center md:text-lg text-xs'>
         One <b className='text-[#1da1f2]'>{carName ? carName : "vehicle"}</b> coming right to your location!
