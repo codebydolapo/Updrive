@@ -91,8 +91,8 @@ export default function Home() {
           <Image src={"/images/rentalBanner.webp"} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
         </div>
         <div className="md:w-[50%] w-full flex flex-col md:items-start items-center justify-center space-y-4 md:pr-[12rem]">
-          <h1 className="font-bold md:text-4xl text-3xl">Download our app!</h1>
-          <p className="text-sm md:text-start text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
+          <h1 className="font-bold md:text-4xl text-2xl">Download our app!</h1>
+          <p className="md:text-sm text-xs md:text-start text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
           <button className="bg-black px-3 py-2 text-sm text-white rounded-full">Download Now</button>
         </div>
       </div>
