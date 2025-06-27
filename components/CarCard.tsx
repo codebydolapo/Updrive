@@ -29,11 +29,11 @@ function CarCard({ name, price, location, image, seaters, tankCapacity, id }: Po
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center justify-center space-x-1">
           <User className="size-4" />
-          <p className="text-[0.6rem] font-light">{seaters} People</p>
+          <p className="text-[0.6rem] font-light">{seaters}</p>
         </div>
         <div className="flex items-center justify-center space-x-1">
           <Fuel className="size-4" />
-          <p className="text-[0.6rem] font-light">{tankCapacity} Ltrs</p>
+          <p className="text-[0.6rem] font-light">{tankCapacity} L</p>
         </div>
         <div className="flex items-center justify-center space-x-1">
           <CarFront className="size-4" />

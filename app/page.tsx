@@ -11,7 +11,7 @@ import blogs from "@/data/blogs";
 
 export default function Home() {
   return (
-    <div className="w-[100vw] relative flex flex-col items-center">
+    <div className="w-full relative flex flex-col items-center">
       <div className="md:w-[110vw] md:h-[110vw] w-[100vh] h-[100vh] bg-[#1da1f2] rounded-b-full left-1/2 -translate-x-1/2 absolute -z-10 md:-top-[60vw] -top-[50vh]" />
       <div className="md:mt-10 mt-20 flex flex-col md:max-w-[55rem] max-w-[100vw]">
         <h1 className="text-white md:text-[5rem] text-5xl font-semibold text-center tracking-tight md:leading-20">The Best Platform For Car Rentals</h1>
@@ -91,8 +91,8 @@ export default function Home() {
           <Image src={"/images/rentalBanner.webp"} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
         </div>
         <div className="md:w-[50%] w-full flex flex-col md:items-start items-center justify-center space-y-4 md:pr-[12rem]">
-          <h1 className="font-bold text-4xl">Download our app!</h1>
-          <p className="text-base md:text-start text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
+          <h1 className="font-bold md:text-4xl text-3xl">Download our app!</h1>
+          <p className="text-sm md:text-start text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt tempore tenetur quidem odit quos dicta, minus exercitationem autem magnam inventore assumenda temporibus! Architecto fugit quaerat magnam dolorum repellendus quas quia.</p>
           <button className="bg-black px-3 py-2 text-sm text-white rounded-full">Download Now</button>
         </div>
       </div>
@@ -117,8 +117,8 @@ export default function Home() {
             })
           }
         </div>
-        <div className="w-[50%] flex items-end justify-end mt-10">
-          <button className="md:py-4 py-2 px-8 text-xs bg-black rounded-full text-white cursor-pointer">See More</button>
+        <div className="w-full flex items-center justify-center mt-10">
+          <button className="md:py-4 py-2 px-8 text-xs bg-black md:rounded-full rounded-xl text-white cursor-pointer">See More</button>
         </div>
       </div>
       <div className="md:my-10 my-20 flex flex-col items-start justify-start w-[100vw] scrollbar-hidden">
