@@ -45,7 +45,7 @@ function CarCard({ name, price, location, image, seaters, tankCapacity, id }: Po
           <p className="text-sm font-bold">${price}<strong className="text-[0.5rem] font-light">/day</strong></p>
         </div>
         <div className="flex-1 flex items-end justify-end">
-          <button className="md:py-2 py-1 px-4 text-xs bg-[#1da1f2] md:rounded-full rounded-lg text-white ">Rent Now!</button>
+          <button className="md:py-2 py-1 px-4 md:text-xs text-[0.7rem] font-semibold bg-[#1da1f2] md:rounded-full rounded-lg text-white ">Rent Now!</button>
         </div>
       </div>
     </Link>
