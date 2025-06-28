@@ -13,7 +13,7 @@ function CarCard({ name, price, location, image, seaters, tankCapacity, id }: Po
       <div className="w-full flex items-center justify-between">
         <div className="flex flex-1 flex-col items-start justify-start">
           <p className="text-md font-bold">{name}</p>
-          <p className="text-black-300 md:text-sm text-xs">{location}</p>
+          <p className="text-black-300 md:text-sm text-[0.7rem]">{location}</p>
         </div>
         <div className="">
           {isHeartFilled ? (
