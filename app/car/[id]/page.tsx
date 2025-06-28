@@ -7,8 +7,7 @@ import { Heart, Fuel, Users, Gauge, Car, Star, ClipboardList, MapPin, Wrench, Ca
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { Libraries } from '@react-google-maps/api';
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
-import { useSignIn } from '@clerk/nextjs';
+import { SignInButton, useUser } from '@clerk/nextjs';
 
 const libraries: Libraries = ["places", "marker"];
 
@@ -44,19 +43,9 @@ function Page() {
         version: "beta"
     });
      const { user } = useUser()
-    const { signIn } = useSignIn();
 
-    const handleGoogleSignIn = async () => {
-        try {
-            await signIn?.authenticateWithRedirect({
-                strategy: 'oauth_google',
-                redirectUrl: '/sso-callback', // A dedicated page for handling SSO redirects
-                redirectUrlComplete: '/', // Where to go after the SSO flow is complete
-            });
-        } catch (err) {
-            console.error('OAuth error', err);
-        }
-    };
+
+   
 
     // Handle case where car is not found - this return statement comes AFTER all hooks
     if (!car) {
@@ -250,11 +239,20 @@ function Page() {
                                 ${car.price}
                                 <span className="md:text-xl text-sm font-light text-gray-600">/day</span>
                             </p>
+                            {
+                                user ?
                             <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
-                                href={`${user ? `/delivery?carName=${car.name}` : handleGoogleSignIn}`}
+                                href={`/delivery?carName=${car.name}`}
                             >
                                 Rent Now
                             </Link>
+                            :
+                            <div className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+                                // href={`${user ? `/delivery?carName=${car.name}` : handleGoogleSignIn}`}
+                            >
+                                <SignInButton/>
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>

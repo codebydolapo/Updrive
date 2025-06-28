@@ -13,8 +13,8 @@ function Header() {
 
                 <div className='flex items-center w-full justify-between md:px-4 px-2 '>
                     <Link href="/" className='flex space-x-2 items-center justify-between'>
-                        <Image alt="" src="/icons/logo.png" width={0} height={0} className='rounded-full md:size-8 size-7' unoptimized />
-                        <h1 className='font-bold text-3xl text-white'>Updrive</h1>
+                        <Image alt="" src="/icons/logo.png" width={0} height={0} className='rounded-full md:size-8 size-6' unoptimized />
+                        <h1 className='font-bold md:text-3xl text-xl text-white'>Updrive</h1>
                     </Link>
                     {/* <Link href={"/home"} className="cursor-pointer md:w-[10rem] w-[7rem] md:h-[3rem] h-[2rem] bg-black text-white rounded-full font-bold flex items-center justify-center md:text-[1rem] text-xs">
                         <p>Sign up</p>
