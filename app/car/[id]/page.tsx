@@ -46,7 +46,7 @@ function CarPage() {
                         <Info className="size-10 text-red-500" />
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 mb-2">Car Not Found</h2>
-                    <p className="text-slate-500 mb-8">We couldn't find the vehicle you're looking for. It might have been unlisted.</p>
+                    <p className="text-slate-500 mb-8">We couldn&apos;t find the vehicle you&apos;re looking for. It might have been unlisted.</p>
                     <Link href="/" className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all block text-center">
                         Back to Fleet
                     </Link>

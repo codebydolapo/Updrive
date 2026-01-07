@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+   "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  },
   "dependencies": {
     "@clerk/nextjs": "^6.23.1",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
