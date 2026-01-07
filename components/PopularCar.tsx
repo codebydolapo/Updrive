@@ -1,45 +1,73 @@
-import { Heart, User, Fuel, CarFront } from 'lucide-react'
+import { Heart, User, Fuel, Gauge } from 'lucide-react'
 import React from 'react'
 import Image from 'next/image'
 import PopularCars from '@/types/popularCars'
 import Link from 'next/link'
 
-function PopularCar({ name, price, location, image, seaters, tankCapacity, background, id }: PopularCars) {
+function PopularCar({ name, price, location, image, seaters, tankCapacity, background, id, manual }: PopularCars) {
     return (
-        <Link className={`${background} md:min-w-[18vw] md:max-w-[18vw] min-w-[60vw] max-w-[60vw] flex flex-col items-center justify-between md:h-[19vw] h-[70vw] p-2 rounded-lg mx-2`} href={`/car/${id}`}>
-            <div className="w-full flex items-center justify-between">
-                <div className="flex flex-1 flex-col items-start justify-start">
-                    <p className="text-md font-bold">{name}</p>
-                    <p className="text-black-300 text-sm">{location}</p>
+        <Link 
+            href={`/car/${id}`}
+            className={`group relative flex flex-col justify-between 
+                        min-w-[280px] max-w-[320px] md:min-w-[300px] 
+                        h-[400px] md:h-[380px] p-5 rounded-3xl 
+                        transition-all duration-300 ease-out
+                        hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20
+                        ${background || 'bg-white border border-slate-100'}`}
+        >
+            {/* Header: Name & Like Button */}
+            <div className="flex justify-between items-start">
+                <div>
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {name}
+                    </h3>
+                    <p className="text-slate-500 text-sm font-medium">{location}</p>
                 </div>
-                <div className="">
-                    <Heart className="size-6" />
+                <button className="p-2 bg-white/50 backdrop-blur-sm rounded-full shadow-sm hover:bg-red-50 transition-colors">
+                    <Heart className="size-5 text-slate-400 hover:text-red-500 hover:fill-red-500 transition-all" />
+                </button>
+            </div>
+
+            {/* Image Section: Using a Container for consistent scale */}
+            <div className="relative w-full h-32 flex items-center justify-center my-4">
+                <Image 
+                    src={image} 
+                    alt={name} 
+                    width={260} 
+                    height={120}
+                    className="object-contain transform group-hover:scale-110 transition-transform duration-500" 
+                />
+            </div>
+
+            {/* Specs Grid */}
+            <div className="grid grid-cols-3 gap-2 mb-6">
+                <div className="flex flex-col items-center gap-1 p-2 rounded-2xl bg-white/40">
+                    <User className="size-4 text-slate-600" />
+                    <span className="text-[10px] font-semibold text-slate-700">{seaters} People</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2 rounded-2xl bg-white/40">
+                    <Fuel className="size-4 text-slate-600" />
+                    <span className="text-[10px] font-semibold text-slate-700">{tankCapacity}L</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2 rounded-2xl bg-white/40">
+                    <Gauge className="size-4 text-slate-600" />
+                    <span className="text-[10px] font-semibold text-slate-700">
+                        {manual ? 'Manual' : 'Auto'}
+                    </span>
                 </div>
             </div>
-            <div className="w-full h-[60%] flex items-center justify-center">
-                <Image src={image} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
-            </div>
-            <div className="flex items-center justify-between w-full">
-                <div className="flex items-center justify-center space-x-1">
-                    <User className="size-4" />
-                    <p className="text-[0.7rem] font-light">{seaters} People</p>
+
+            {/* Footer: Price & CTA */}
+            <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-900/5">
+                <div>
+                    <span className="text-2xl font-black text-slate-900">${price}</span>
+                    <span className="text-sm text-slate-500 font-medium">/day</span>
                 </div>
-                <div className="flex items-center justify-center space-x-1">
-                    <Fuel className="size-4" />
-                    <p className="text-[0.7rem] font-light">{tankCapacity} Liters</p>
-                </div>
-                <div className="flex items-center justify-center space-x-1">
-                    <CarFront className="size-4" />
-                    <p className="text-[0.7rem] font-light">Manual</p>
-                </div>
-            </div>
-            <div className="flex items-center justify-around w-full">
-                <div className="w-[50%] flex items-start justify-start">
-                    <p className="text-sm font-bold">${price}<strong className="text-[0.5rem] font-light">/day</strong></p>
-                </div>
-                <div className="w-[50%] flex items-end justify-end">
-                    <button className="py-2 px-4 text-xs bg-black rounded-full text-white ">Rent Now!</button>
-                </div>
+                
+                <button className="bg-slate-900 text-white px-6 py-3 rounded-xl text-sm font-bold 
+                                   hover:bg-blue-600 active:scale-95 transition-all shadow-lg shadow-slate-200">
+                    Rent Now
+                </button>
             </div>
         </Link>
     )

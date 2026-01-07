@@ -1,52 +1,84 @@
-import { Heart, User, Fuel, CarFront } from 'lucide-react'; // Import HeartOff
+import { Heart, User, Fuel, Gauge } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import PopularCars from '@/types/popularCars';
 
-function CarCard({ name, price, location, image, seaters, tankCapacity, id }: PopularCars) {
-  // Generate a random boolean to decide if the heart should be filled
-  const isHeartFilled = Math.random() < 0.5; // This will make about half of them filled
+function CarCard({ name, price, location, image, seaters, tankCapacity, id, manual }: PopularCars) {
+  // Use the ID to create a stable "random" state so it doesn't flicker on re-render
+  const isHeartFilled = id ? id % 3 === 0 : false; 
 
   return (
-    <Link className={`shadow-md md:min-w-[14vw] md:max-w-[14vw] min-w-[48vw] max-w-[48vw] flex flex-col items-center justify-between md:h-[17vw] h-[60vw] p-2 rounded-lg md:my-4 md:mx-4 my-2`} href={`/car/${id}`}>
-      <div className="w-full flex items-center justify-between">
-        <div className="flex flex-1 flex-col items-start justify-start">
-          <p className="text-md font-bold">{name}</p>
-          <p className="text-black-300 md:text-sm text-[0.7rem]">{location}</p>
+    <Link 
+      href={`/car/${id}`}
+      className="group bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-100 
+                 flex flex-col justify-between 
+                 w-full sm:max-w-[300px] min-h-[380px] 
+                 p-4 rounded-2xl transition-all duration-300 ease-in-out"
+    >
+      {/* Header Section */}
+      <div className="flex justify-between items-start w-full">
+        <div className="space-y-0.5">
+          <h3 className="font-bold text-lg text-slate-900 truncate max-w-[150px]">
+            {name}
+          </h3>
+          <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+            {location}
+          </p>
         </div>
-        <div className="">
-          {isHeartFilled ? (
-            <Heart className="size-6 text-red-500 fill-current" /> // Filled red heart
-          ) : (
-            <Heart className="size-6" /> // Outlined heart
-          )}
+        <button className="transition-transform active:scale-90">
+          <Heart 
+            className={`size-5 ${isHeartFilled ? 'text-red-500 fill-red-500' : 'text-slate-300'}`} 
+          />
+        </button>
+      </div>
+
+      {/* Hero Image Section */}
+      <div className="relative w-full h-32 flex items-center justify-center my-6">
+        <Image 
+          src={image} 
+          alt={name} 
+          width={220} 
+          height={100}
+          unoptimized 
+          className="object-contain transition-transform duration-500 group-hover:scale-105" 
+        />
+        {/* Subtle shadow gradient under car */}
+        <div className="absolute bottom-2 w-3/4 h-2 bg-slate-900/5 blur-xl rounded-[100%]" />
+      </div>
+
+      {/* Specs Row */}
+      <div className="flex items-center justify-between w-full py-3 border-t border-slate-50">
+        <div className="flex items-center gap-1.5">
+          <User className="size-4 text-slate-400" />
+          <span className="text-xs font-semibold text-slate-600">{seaters}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Fuel className="size-4 text-slate-400" />
+          <span className="text-xs font-semibold text-slate-600">{tankCapacity}L</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Gauge className="size-4 text-slate-400" />
+          <span className="text-xs font-semibold text-slate-600">
+            {manual ? 'Manual' : 'Auto'}
+          </span>
         </div>
       </div>
-      <div className="w-full h-[60%] flex items-center justify-center">
-        <Image src={image} alt="" unoptimized width={0} height={0} className="w-[90%] h-auto" />
-      </div>
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center justify-center space-x-1">
-          <User className="size-4" />
-          <p className="text-[0.6rem] font-light">{seaters}</p>
+
+      {/* Footer / CTA */}
+      <div className="flex items-center justify-between w-full pt-3">
+        <div className="flex flex-col">
+          <p className="text-xl font-extrabold text-slate-900 leading-none">
+            ${price}
+          </p>
+          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">per day</span>
         </div>
-        <div className="flex items-center justify-center space-x-1">
-          <Fuel className="size-4" />
-          <p className="text-[0.6rem] font-light">{tankCapacity} L</p>
-        </div>
-        <div className="flex items-center justify-center space-x-1">
-          <CarFront className="size-4" />
-          <p className="text-[0.6rem] font-light">Manual</p>
-        </div>
-      </div>
-      <div className="flex items-center justify-around w-full">
-        <div className="flex items-start justify-start">
-          <p className="text-sm font-bold">${price}<strong className="text-[0.5rem] font-light">/day</strong></p>
-        </div>
-        <div className="flex-1 flex items-end justify-end">
-          <button className="md:py-2 py-1 px-4 md:text-xs text-[0.7rem] font-semibold bg-[#1da1f2] md:rounded-full rounded-lg text-white ">Rent Now!</button>
-        </div>
+        
+        <button className="bg-[#1da1f2] hover:bg-blue-600 text-white 
+                           px-5 py-2.5 rounded-xl text-sm font-bold 
+                           transition-colors shadow-lg shadow-blue-100 active:translate-y-0.5">
+          Rent Now
+        </button>
       </div>
     </Link>
   );

@@ -3,7 +3,11 @@ import { usePathname } from 'next/navigation';
 import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import popularCars from '@/data/popularCars';
-import { Heart, Fuel, Users, Gauge, Car, Star, ClipboardList, MapPin, Wrench, CalendarDays } from 'lucide-react';
+import { 
+    Heart, Fuel, Users, Gauge, Car, Star, 
+    ClipboardList, MapPin, Wrench, CalendarDays, 
+    CheckCircle2, Info
+} from 'lucide-react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import { Libraries } from '@react-google-maps/api';
 import Link from 'next/link';
@@ -11,254 +15,192 @@ import { SignInButton, useUser } from '@clerk/nextjs';
 
 const libraries: Libraries = ["places", "marker"];
 
-function Page() {
+function CarPage() {
     const pathname = usePathname();
     const id = pathname.split('/').pop();
+    const { user } = useUser();
 
-    // All hooks must be called unconditionally at the top level
     const car = useMemo(() => popularCars.find(item => item.id === Number(id)), [id]);
-
-    // State to manage the currently displayed main car image
     const [mainCarImage, setMainCarImage] = useState(car?.image || "/images/placeholder.png");
 
-    // Update main image when car changes or component mounts for the first time
     useEffect(() => {
-        if (car?.image) {
-            setMainCarImage(car.image);
-        } else {
-            setMainCarImage("/images/placeholder.png"); // Ensure a placeholder if car or image is missing
-        }
+        if (car?.image) setMainCarImage(car.image);
     }, [car]);
 
-    // Define defaultCenter unconditionally, providing a fallback if car is not found initially
     const defaultCenter = useMemo(() => ({
-        lat: car?.lat || 6.5244, // Default to a fallback coordinate if car is null
+        lat: car?.lat || 6.5244,
         lng: car?.lng || 3.3792
     }), [car]);
 
-    // useLoadScript must also be called unconditionally
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_Maps_API_KEY || "",
         libraries: libraries,
         version: "beta"
     });
-     const { user } = useUser()
 
-
-   
-
-    // Handle case where car is not found - this return statement comes AFTER all hooks
     if (!car) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-50 text-gray-700">
-                <div className="text-center p-8 bg-white rounded-xl shadow-lg">
-                    <h2 className="text-2xl font-bold mb-4">Car Not Found</h2>
-                    <p className="text-lg">The car you are looking for does not exist.</p>
-                    <Link href="/" className="mt-4 inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
-                        Back to Home
+            <div className="flex items-center justify-center min-h-screen bg-slate-50">
+                <div className="text-center p-12 bg-white rounded-3xl shadow-xl max-w-md">
+                    <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Info className="size-10 text-red-500" />
+                    </div>
+                    <h2 className="text-3xl font-black text-slate-900 mb-2">Car Not Found</h2>
+                    <p className="text-slate-500 mb-8">We couldn't find the vehicle you're looking for. It might have been unlisted.</p>
+                    <Link href="/" className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all block text-center">
+                        Back to Fleet
                     </Link>
                 </div>
             </div>
         );
     }
 
-    const mapContainerStyle = {
-        width: '100%',
-        height: '350px',
-        borderRadius: '12px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    };
-
-   
+    const mapContainerStyle = { width: '100%', height: '350px', borderRadius: '24px' };
 
     return (
-        <div className='min-h-screen bg-gray-50 md:p-10 flex flex-col items-center '>
-            <div className='md:max-w-[95vw] w-full bg-white rounded-2xl shadow-xl overflow-hidden md:p-8'>
-                {/* Main Content Area */}
-                <div className='flex flex-col lg:flex-row gap-8 lg:gap-12'>
+        <div className='min-h-screen bg-[#F6F7F9]'>
+            {/* Breadcrumbs / Back button */}
+            <div className="max-w-7xl mx-auto px-6 py-6">
+                <Link href="/" className="text-slate-500 hover:text-blue-600 text-sm font-medium flex items-center gap-2">
+                    ← Back to results
+                </Link>
+            </div>
 
-                    {/* Left Section: Car Image & Thumbnails */}
-                    <div className='flex-1 flex flex-col items-center lg:items-center'>
-                        {/* Main Car Image */}
-                        <div className='w-full h-auto flex items-center justify-center bg-gray-100 rounded-xl p-4 shadow-md'>
-                            <Image
-                                src={mainCarImage}
-                                alt={`Main image of ${car.brand} ${car.name}`}
-                                unoptimized
-                                width={0}
-                                height={0}
-                                className="w-full h-auto object-contain max-h-[350px] lg:max-h-[450px]"
-                                priority
-                            />
-                        </div>
+            <main className='max-w-7xl mx-auto px-4 lg:px-6 pb-24'>
+                <div className='flex flex-col lg:flex-row gap-10'>
+                    
+                    {/* LEFT COLUMN: Visuals (Sticky on Desktop) */}
+                    <div className='lg:w-7/12'>
+                        <div className="lg:sticky lg:top-24 space-y-6">
+                            {/* Main Display */}
+                            <div className='relative aspect-video bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 flex items-center justify-center overflow-hidden'>
+                                <div className="absolute top-6 right-6">
+                                    <button className="p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:scale-110 transition-transform">
+                                        <Heart className="size-6 text-red-500 fill-red-500" />
+                                    </button>
+                                </div>
+                                <Image
+                                    src={mainCarImage}
+                                    alt={car.name}
+                                    width={800}
+                                    height={500}
+                                    className="w-full h-auto object-contain"
+                                    priority
+                                />
+                            </div>
 
-                        {/* Thumbnail Images */}
-                        <div className='flex flex-wrap justify-center lg:justify-start gap-3 mt-6'>
-                            {
-                                car.images && car.images.length > 0 ? (
-                                    car.images.map((image, index) => (
-                                        <div
-                                            key={index}
-                                            className={`md:w-20 md:h-20 w-15 h-15 cursor-pointer border-2
-                                                ${mainCarImage === image ? 'border-blue-600 ring-2 ring-blue-300' : 'border-transparent hover:border-blue-500'}
-                                                rounded-lg overflow-hidden transition-all duration-200 shadow-sm`}
-                                            onClick={() => setMainCarImage(image)}
-                                        >
-                                            <Image
-                                                src={image}
-                                                alt={`Thumbnail ${index + 1} of ${car.name}`}
-                                                unoptimized
-                                                width={0}
-                                                height={0}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        </div>
-                                    ))
-                                ) : (
-                                    <div className="text-gray-400 text-sm mt-2">No additional images available.</div>
-                                )
-                            }
-                        </div>
-                        {/* Google Map */}
-                        <div className='w-full mt-8'>
-                            <h3 className='md:text-2xl text-sm font-light text-gray-800 mb-4'>Car Location: <b className='text-[#1da1f2] text-base font-semibold'>{car.location}</b></h3>
-                            {loadError && (
-                                <div className="flex items-center justify-center min-h-[200px] text-red-600 border border-red-300 bg-red-50 rounded-lg p-4 mb-4">
-                                    Error loading maps. Please check your API key and network.
+                            {/* Thumbnails Gallery */}
+                            <div className='flex gap-4 overflow-x-auto pb-2 no-scrollbar'>
+                                {car.images?.map((img, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setMainCarImage(img)}
+                                        className={`relative flex-shrink-0 w-24 h-20 rounded-2xl overflow-hidden border-2 transition-all
+                                            ${mainCarImage === img ? 'border-blue-600 ring-4 ring-blue-50' : 'border-white hover:border-slate-200 shadow-sm'}`}
+                                    >
+                                        <Image src={img} alt="preview" fill className="object-cover" />
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Map Card */}
+                            <div className="hidden lg:block bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100">
+                                <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                    <MapPin className="size-5 text-blue-600" /> Location: {car.location}
+                                </h3>
+                                <div className="rounded-3xl overflow-hidden grayscale-[0.5] hover:grayscale-0 transition-all duration-700">
+                                    {isLoaded ? (
+                                        <GoogleMap mapContainerStyle={mapContainerStyle} center={defaultCenter} zoom={14} options={{ disableDefaultUI: true }}>
+                                            <Marker position={defaultCenter} />
+                                        </GoogleMap>
+                                    ) : <div className="h-[350px] bg-slate-100 animate-pulse" />}
                                 </div>
-                            )}
-                            {!isLoaded && !loadError && (
-                                <div className="flex items-center justify-center min-h-[200px] text-gray-700 border border-gray-300 bg-gray-50 rounded-lg p-4 mb-4">
-                                    Loading Maps...
-                                </div>
-                            )}
-                            {isLoaded && (
-                                <GoogleMap
-                                    mapContainerStyle={mapContainerStyle}
-                                    center={defaultCenter}
-                                    zoom={14}
-                                    options={{
-                                        disableDefaultUI: true,
-                                        zoomControl: true,
-                                        streetViewControl: false,
-                                        mapTypeControl: false,
-                                        fullscreenControl: false,
-                                    }}
-                                >
-                                    <Marker position={defaultCenter} />
-                                </GoogleMap>
-                            )}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Right Section: Details & Map */}
-                    <div className='flex-1 flex flex-col items-start space-y-6'>
-                        {/* Car Header */}
-                        <div className='w-full flex flex-row md:items-start items-center justify-between pb-4 border-b border-gray-200 '>
-                            <div className='flex flex-col'>
-                                <h1 className='font-extrabold md:text-4xl text-2xl text-gray-900 leading-tight'>{car.brand} <span className="text-blue-600">{car.name}</span></h1>
-                                <p className='md:text-base text-sm text-gray-500 mt-1 flex items-center gap-1'>
-                                    <MapPin className="size-4 text-gray-400" /> {car.location}
-                                </p>
-                                {/* Rating and Reviews */}
-                                <div className="flex items-center gap-2 mt-2">
-                                    <div className="flex text-yellow-400">
-                                        {Array(5).fill(0).map((_, i) => (
-                                            <Star key={i} className={`md:size-5 size-3 ${i < Math.floor(car.rating) ? 'fill-current' : ''}`} />
-                                        ))}
+                    {/* RIGHT COLUMN: Details & Action */}
+                    <div className='lg:w-5/12 space-y-8'>
+                        {/* Title Section */}
+                        <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+                            <h1 className='text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-2'>
+                                {car.brand} <span className="text-blue-600">{car.name}</span>
+                            </h1>
+                            <div className="flex items-center gap-4 text-slate-500 mb-6">
+                                <div className="flex items-center text-amber-400">
+                                    <Star className="size-4 fill-current" />
+                                    <span className="ml-1 text-slate-900 font-bold">{car.rating.toFixed(1)}</span>
+                                </div>
+                                <span className="text-sm font-medium">• {car.reviewsCount} verified reviews</span>
+                            </div>
+                            <p className='text-slate-600 leading-relaxed text-lg'>
+                                {car.description}
+                            </p>
+                        </div>
+
+                        {/* Specs Grid */}
+                        <div className="grid grid-cols-2 gap-4">
+                            {[
+                                { icon: Users, label: "Seaters", val: car.seaters },
+                                { icon: Gauge, label: "Type", val: car.transmission },
+                                { icon: Fuel, label: "Fuel", val: car.fuelType },
+                                { icon: CalendarDays, label: "Year", val: car.year },
+                                { icon: Wrench, label: "Drive", val: car.driveTrain },
+                                { icon: ClipboardList, label: "Mileage", val: `${car.mileage.toLocaleString()}km` }
+                            ].map((spec, i) => (
+                                <div key={i} className="bg-white p-4 rounded-2xl border border-slate-100 flex items-center gap-3">
+                                    <div className="bg-blue-50 p-2 rounded-xl">
+                                        <spec.icon className="size-5 text-blue-600" />
                                     </div>
-                                    <span className="text-gray-600 md:text-sm text-xs">
-                                        {car.rating.toFixed(1)} ({car.reviewsCount} reviews)
-                                    </span>
+                                    <div>
+                                        <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{spec.label}</p>
+                                        <p className="text-sm font-bold text-slate-900">{spec.val}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Features */}
+                        <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+                            <h3 className="text-xl font-bold text-slate-900 mb-6">Premium Features</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {car.features?.map((f, i) => (
+                                    <div key={i} className="flex items-center gap-3 text-slate-700 font-medium">
+                                        <CheckCircle2 className="size-5 text-green-500" />
+                                        {f}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Booking Sidebar / Floating Bottom Mobile */}
+                        <div className="fixed bottom-0 left-0 right-0 lg:relative bg-white lg:bg-blue-600 p-6 lg:p-10 lg:rounded-[2rem] border-t lg:border-none border-slate-200 z-50 flex items-center justify-between lg:flex-col lg:items-start lg:gap-6 shadow-2xl lg:shadow-blue-200">
+                            <div>
+                                <p className="text-slate-500 lg:text-blue-100 text-xs font-bold uppercase tracking-widest">Total Price</p>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-2xl lg:text-4xl font-black text-slate-900 lg:text-white">${car.price}</span>
+                                    <span className="text-sm text-slate-500 lg:text-blue-200 font-medium">/ day</span>
                                 </div>
                             </div>
-                            <Heart className="md:size-8 size-6 text-red-500 fill-current mt-4 sm:mt-0 cursor-pointer hover:scale-110 transition-transform duration-200" />
-                        </div>
-
-                        {/* Description */}
-                        <h2 className="md:text-2xl text-lg font-semibold text-gray-800">About this car</h2>
-                        <p className='text-gray-700 leading-relaxed md:text-lg text-sm'>
-                            {car.description}
-                        </p>
-
-                        {/* Car Specifications */}
-                        <h2 className="md:text-2xl text-lg font-semibold text-gray-800 mt-4">Specifications</h2>
-                        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700">
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <Users className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Seaters:</span> {car.seaters}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <Gauge className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Transmission:</span> {car.transmission}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <Fuel className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Fuel Type:</span> {car.fuelType}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md truncate">
-                                <Car className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Engine:</span> {car.engine}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <ClipboardList className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Mileage:</span> {car.mileage.toLocaleString()} km
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <Wrench className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Drive Train:</span> {car.driveTrain}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <CalendarDays className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Year:</span> {car.year}
-                            </div>
-                            <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md">
-                                <Fuel className="size-5 text-blue-600" />
-                                <span className="font-semibold text-sm md:text-base">Tank Cap.:</span> {car.tankCapacity} L
-                            </div>
-                        </div>
-
-                        {/* Features Section */}
-                        {car.features && car.features.length > 0 && (
-                            <>
-                                <h2 className="md:text-2xl text-lg font-semibold text-gray-800 mt-4">Features & Amenities</h2>
-                                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700 list-inside text-sm md:text-base">
-                                    {car.features.map((feature, index) => (
-                                        <li key={index} className="flex items-center gap-2">
-                                            <svg className="h-4 w-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                        )}
-
-                        {/* Call to Action / Price Section */}
-                        <div className='w-full flex flex-col sm:flex-row items-center justify-between py-6 border-t mt-6 '>
-                            <p className="text-4xl font-extrabold text-blue-600 mb-4 sm:mb-0">
-                                ${car.price}
-                                <span className="md:text-xl text-sm font-light text-gray-600">/day</span>
-                            </p>
-                            {
-                                user ?
-                            <Link className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
-                                href={`/delivery?carName=${car.name}`}
-                            >
-                                Rent Now
-                            </Link>
-                            :
-                            <div className="px-16 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
-                                // href={`${user ? `/delivery?carName=${car.name}` : handleGoogleSignIn}`}
-                            >
-                                <SignInButton/>
-                            </div>
-                            }
+                            
+                            {user ? (
+                                <Link 
+                                    href={`/delivery?carName=${car.name}`}
+                                    className="lg:w-full bg-blue-600 lg:bg-white text-white lg:text-blue-600 py-4 px-10 rounded-2xl font-bold text-center shadow-lg hover:scale-[1.02] active:scale-95 transition-all"
+                                >
+                                    Rent This Car
+                                </Link>
+                            ) : (
+                                <div className="lg:w-full bg-blue-600 lg:bg-white text-white lg:text-blue-600 px-10 py-4 rounded-2xl font-bold text-center shadow-lg">
+                                    <SignInButton mode="modal" />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
-    )
+    );
 }
 
-export default Page;
+export default CarPage;

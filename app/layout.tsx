@@ -19,26 +19,15 @@ export const metadata: Metadata = {
 
 
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider
-      appearance={{
-        cssLayerName: 'clerk',
-      }}
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-    >
-      <html lang="en" className="w-[100vw] no-scrollbar scrollbar-hidden overflow-x-hidden ">
-        <body
-          className={`${poppins.className} max-w-[100vw] overflow-x-hidden `}
-        >
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <html lang="en" className="scroll-smooth">
+        <body className={`${poppins.className} antialiased text-slate-900 bg-white min-h-screen flex flex-col`}>
           <Header />
-          <div className="md:px-4 px-2">
+          <main className="flex-grow">
             {children}
-          </div>
+          </main>
           <Footer />
         </body>
       </html>
