@@ -5,7 +5,7 @@ import CarCard from "@/components/CarCard";
 import BlogCard from "@/components/BlogCard";
 import blogs from "@/data/blogs";
 
-const LOGO_IMAGES = [1, 2, 3, 4, 5, 6];
+// const LOGO_IMAGES = [1, 2, 3, 4, 5, 6];
 
 export default function Home() {
   return (

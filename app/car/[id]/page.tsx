@@ -4,7 +4,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import popularCars from '@/data/popularCars';
 import { 
-    Heart, Fuel, Users, Gauge, Car, Star, 
+    Heart, Fuel, Users, Gauge, Star, 
     ClipboardList, MapPin, Wrench, CalendarDays, 
     CheckCircle2, Info
 } from 'lucide-react';
@@ -32,7 +32,7 @@ function CarPage() {
         lng: car?.lng || 3.3792
     }), [car]);
 
-    const { isLoaded, loadError } = useLoadScript({
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_Maps_API_KEY || "",
         libraries: libraries,
         version: "beta"
