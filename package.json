@@ -40,5 +40,9 @@
     "@types/react-dom": "^19.0.0",
     "next": "15.3.8"
   },
+  "optionalDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.0.0",
+    "lightningcss-linux-x64-gnu": "^1.29.1"
+  },
   "packageManager": "yarn@4.9.2"
 }
